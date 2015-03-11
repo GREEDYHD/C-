@@ -19,7 +19,7 @@ public:
 	
 private:
 
-	int a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, space, comma, fullstop, apostophe, hyphen;
+	//int a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, space, comma, fullstop, apostophe, hyphen;
 	
 protected:
 	vector<char> characterList;
@@ -31,8 +31,10 @@ protected:
 
 SymbolFreq::SymbolFreq()
 {
-	SymbolType = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', ',' , '.', '\'', '-' };
-	SymbolCount = { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, space, comma, fullstop, apostophe, hyphen };
+	//SymbolType[0] = ( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', ',' , '.', '\'', '-' );
+	//SymbolCount = { a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, space, comma, fullstop, apostophe, hyphen };
+	
+	InitialiseCharacterStorage();
 	LoadFromFile("richardiii");
 	CountLetters();
 
@@ -49,10 +51,27 @@ void SymbolFreq::LoadFromFile(string fileName)
 	ifstream infile;
 	infile.open(fileName + ".txt");//Opens richardiii.txt
 	getline(infile,fileContents);//Sets contents of richardiii equal to string fileContents
-	for (size_t i = 0; i < fileContents.size(); i++)
+	cout << "Total Characters : " << fileContents.size();
+
+	for (int i = 0; i < fileContents.size(); i++)
 	{
 		characterList.push_back(fileContents[i]);//puts fileContents into characterList Vector
 	}
+
+	for (vector<char>::iterator it = characterList.begin(); it != characterList.end(); it++)
+	{
+		
+	}
+		/*for (vector<char>::iterator itTwo = SymbolType.begin(); itTwo != SymbolType.end(); itTwo++)
+		{
+			cout << "OOO";
+			if (characterList[*it] == SymbolType[*itTwo])
+			{
+				SymbolType.push_back(characterList[*it]);
+				SymbolCount.push_back(1);
+			}
+		}
+	}*/
 }
 
 void SymbolFreq::InitialiseCharacterStorage()
@@ -60,7 +79,7 @@ void SymbolFreq::InitialiseCharacterStorage()
 	//Initialises all of the character counts to Null
 	for (vector<int>::iterator it = SymbolCount.begin(); it != SymbolCount.end(); it++)
 	{
-		(*it) = NULL;
+		(*it) = 0;
 	}
 }
 void SymbolFreq::CountLetters()
@@ -78,9 +97,7 @@ void SymbolFreq::CountLetters()
 
 	cout << endl;
 	
-	cout << "Total Characters : " <<  count;
-
-	for (int i = 0; i < SymbolType.size(); i++)
+	for (size_t i = 0; i < SymbolType.size(); i++)
 	{
 		cout << SymbolType[i] << " : " << SymbolCount[i] << endl;
 	}
@@ -89,8 +106,6 @@ void SymbolFreq::CountLetters()
 	{
 		count += SymbolCount[i];
 	}
-	
-	
 	SymbolCount.clear();
 	SymbolType.clear();
 }
